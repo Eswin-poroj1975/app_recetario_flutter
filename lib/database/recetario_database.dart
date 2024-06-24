@@ -21,7 +21,7 @@ class RecetaBaseDeDatos {
   }
 
   Future _createDB(Database db, int version) async{
-    const idType = 'INTEGRER PRIMARY KEY AUTOINCREMENT';
+    const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
     const textType = 'TEXT NOT NULL';
     const boolType = 'BOOLEAN NOT NULL';
     const intType = 'INTEGER NOT NULL';

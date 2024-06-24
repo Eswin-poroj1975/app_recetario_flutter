@@ -14,10 +14,14 @@ class DetalleRecetaPantalla extends StatelessWidget {
       appBar: AppBar(
         title: Text(receta.name),
         actions: [
-          IconButton(onPressed: _mostrarDialogoEdicion(context, receta),
+          IconButton(onPressed: (){
+            _mostrarDialogoEdicion(context, receta);
+          },
            icon: Icon(Icons.edit),
            ),
-          IconButton(onPressed: _mostrarDialogoConfirmarEliminar(context, receta.id!),
+          IconButton(onPressed: (){
+            _mostrarDialogoConfirmarEliminar(context, receta.id!);
+          },
            icon: Icon(Icons.delete),
            ),
         ],

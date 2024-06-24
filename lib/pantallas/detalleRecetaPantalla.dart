@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recetario_bases_de_datos/modelos/receta.dart';
-import 'package:recetario_bases_de_datos/modelos/receta.dart';
 import 'dart:io';
+
+import 'package:recetario_bases_de_datos/providers/recetaProvider.dart';
 
 class DetalleRecetaPantalla extends StatelessWidget {
   static const routeName = '/detalleReceta';
@@ -114,8 +115,9 @@ class DetalleRecetaPantalla extends StatelessWidget {
           ),
         ),
         actions: [
-          TextButton(onPressed: (){
-            Navigator.of(ctx).pop();
+          TextButton(
+            onPressed: (){
+            Navigator.of(context).pop();
           }, 
           child: Text('Cancelar'),),
           ElevatedButton(onPressed: (){
@@ -129,8 +131,35 @@ class DetalleRecetaPantalla extends StatelessWidget {
             imagePath: receta.imagePath,//mantenemos la imagen y su ruta 
             ingredientes: ingredientes.split(','), 
             instrucciones: instrucciones, 
-            tiempoPreparacion: tiempo);
-          }, child: Text('Guardar'))
+            tiempoPreparacion: tiempo
+            );
+            Provider.of<RecetaProvider>(context, listen: false).actualizarReceta(actualizarReceta);
+            Navigator.of(context).pop();
+          }, 
+          child: const Text('Guardar'),
+          )
+        ],
+      );
+    }
+    );
+  }
+
+  void _mostrarDialogoConfirmarEliminar(BuildContext context, int id){
+    showDialog(context: context, 
+    builder: (ctx){
+      return AlertDialog(
+        title: Text('Confirmar eliminación'),
+        content: Text('¿Esta seguro de eliminar esta receta?'),
+        actions: [
+          TextButton(onPressed: (){
+            Navigator.of(ctx).pop();
+          }, child: Text('Cancelar')),
+
+          ElevatedButton(onPressed: (){
+            Provider.of<RecetaProvider>(context, listen: false).eliminarReceta(id);
+            Navigator.of(ctx).pop();
+            Navigator.of(context).pop();
+          }, child: Text('Eliminar'),),
         ],
       );
     }
